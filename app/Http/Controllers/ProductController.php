@@ -21,14 +21,14 @@ class ProductController extends Controller
     }
 
     public function addNewProduct(Request $request){
-        $vavlidate = validator()->make($request->all(), [
+        $validate = validator()->make($request->all(), [
             'title' => 'required|string|min:3|max:255',
             'details' => 'required|numeric',
         ]);
 
 
-        if($vavlidate->fails()){
-            return redirect()->back()->withErrors($vavlidate)->withInput();
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         Products::create([
@@ -37,11 +37,43 @@ class ProductController extends Controller
         ]);
 
 
-        return redirect('index');
+        return redirect(route('index'));
     }
 
-    public function editProduct()
+    public function editProduct($id)
     {
-        return view('edit-product');
+        $product = Products::find($id);
+
+        return view('edit-product', ['product' => $product]);
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Products::find($id);
+
+        $validate = validator()->make($request->all(), [
+            'title' => 'required|string|min:3|max:255',
+            'details' => 'required|numeric',
+        ]);
+
+
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        $product->update([
+            'name' => $request->title,
+            'quantity' => $request->details,
+        ]);
+
+        return redirect(route('index'));
+    }
+
+    public function deleteProduct($id){
+        $product = Products::find($id);
+
+        $product->delete();
+
+        return redirect(route('index'));
     }
 }

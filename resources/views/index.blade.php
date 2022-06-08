@@ -37,15 +37,24 @@
                             </div>
                         </div>
                         <p class="card-text">
-                            {{ $product->detail }}
+                            {{ $product->created_at }}
                         </p>
 
-                        <div class="mt-3 d-flex">
+                        <div class="mt-3 d-flex justify-content-between">
                             <a
-                                href="{{ route('editProduct') }}"
+                                href="{{ route('editProduct', ['id'=>$product->id]) }}"
                                 class="btn btn-warning ms-2"
-                                >Edit</a
-                            >
+                                >Edit
+                            </a>
+                            <form
+                                action="{{ route('deleteProduct', ['id'=>$product->id]) }}"
+                                method="POST"
+                                class="d-inline "
+                                >
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,12 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/index', [ProductController::class, 'index'])->name('index');
-Route::get('/add-product', [ProductController::class, 'addProduct'])->name('addProduct');
-Route::post('/product/create', [ProductController::class, 'addNewProduct'])->name('addNewProduct');
-Route::get('/edit-product', [ProductController::class, 'editProduct'])->name('editProduct');
+Route::get('/', [ProductController::class, 'index'])->name('index');
+
+Route::prefix('product')->group(function () {
+    Route::get('/add', [ProductController::class, 'addProduct'])->name('addProduct');
+    Route::post('//create', [ProductController::class, 'addNewProduct'])->name('addNewProduct');
+    Route::get('/{id}/edit', [ProductController::class, 'editProduct'])->name('editProduct');
+    Route::post('/{id}/update', [ProductController::class, 'updateProduct'])->name('updateProduct');
+    Route::delete('/{id}/delete', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+});
