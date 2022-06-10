@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
 use App\Service\ProductService;//ini buat ngeimport class ProductService
 use Exception;//ini yang diperlukan untuk menangkap error dari ProductService
 use Illuminate\Http\Request;
@@ -65,8 +64,6 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request, $id)
     {
-        $product = $this->productRepository->getById($id);
-
         $validate = $this->productRepository->validate($request);
 
         if($validate->fails()){

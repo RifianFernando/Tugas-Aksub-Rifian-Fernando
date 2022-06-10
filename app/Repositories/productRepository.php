@@ -18,7 +18,6 @@ class ProductRepository
         $getall = Products::orderBy('name')->get();
 
         return $getall;
-        return $this->product->get();
     }
 
     public function getById($id)
@@ -38,8 +37,8 @@ class ProductRepository
     }
 
     public function update($request, $id){
-        $product = Products::find($id);
-
+        $product = $this->getById($id);
+        
         $product->update([
             'name' => $request->title,
             'quantity' => $request->details,
