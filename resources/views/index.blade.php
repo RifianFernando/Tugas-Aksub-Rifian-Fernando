@@ -37,7 +37,10 @@
                             </div>
                         </div>
                         <p class="card-text">
-                            {{ $product->created_at }}
+                            {{ $product->updated_at }}
+                        </p>
+                        <p class="card-text">
+                            {{ $product->updated_at }}
                         </p>
 
                         <div class="mt-3 d-flex justify-content-between">

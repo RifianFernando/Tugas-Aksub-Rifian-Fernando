@@ -33,13 +33,16 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->productRepository->getAll();
+        //dd($products[0]->category);
 
         return view('index', compact('products'));
     }
 
     public function addProduct()
     {
-        return view('add-product');
+        $categories = $this->productRepository->getAllCategories();
+
+        return view('add-product', compact('categories'));
     }
 
     public function addNewProduct(Request $request)
@@ -57,9 +60,10 @@ class ProductController extends Controller
 
     public function editProduct($id)
     {
+        $categories = $this->productRepository->getAllCategories();
         $product = $this->productRepository->getById($id);
 
-        return view('edit-product', ['product' => $product]);
+        return view('edit-product', compact('categories', 'product'));
     }
 
     public function updateProduct(Request $request, $id)

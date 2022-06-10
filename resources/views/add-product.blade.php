@@ -40,6 +40,22 @@
                                 class="form-control"
                             >{{ old('details') }}</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="priority" class="form-label">
+                                Categories
+                            </label>
+                            <select
+                                name="category_id"
+                                id="priority"
+                                class="form-select"
+                            >
+                            @forelse ($categories as $category)
+                                <option  value="{{ $category->id }}">{{ $category->name }}</option>
+                            @empty
+                                <option selected value="">No Categories</option>
+                            @endforelse
+                            </select>
+                        </div>
                         <div class="row justify-content-center">
                             <button type="submit" class="btn btn-primary">
                                 Submit

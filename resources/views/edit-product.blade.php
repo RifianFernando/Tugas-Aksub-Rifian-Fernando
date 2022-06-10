@@ -42,6 +42,27 @@
                             >{{  $product->quantity  }}</textarea
                             >
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="priority" class="form-label">
+                                Categories
+                            </label>
+                            <select
+                                name="category_id"
+                                id="priority"
+                                class="form-select"
+                            >
+                            @forelse ($categories as $category)
+                                @if($product->category_id == $category->id)
+                                    <option selected value="{{ $category->id }}">{{ $category->name }}</option>
+                                @else
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endif
+                            @empty
+                                <option selected value="">No Categories</option>
+                            @endforelse
+                            </select>
+                        </div>
                         <div class="row justify-content-center">
                             <button type="submit" class="btn btn-primary">
                                 Submit

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Repositories;
+
+use App\Models\category;
 use App\Models\Products;
 
 
@@ -26,11 +28,19 @@ class ProductRepository
 
         return $getById;
     }
+
+    public function getAllCategories()
+    {
+        $getAllCategories = category::all();
+
+        return $getAllCategories;
+    }
     
     public function create($request){
         Products::create([
             'name' => $request->title,
             'quantity' => $request->details,
+            'category_id' => $request->category_id,
         ]);
 
         return;
@@ -42,6 +52,7 @@ class ProductRepository
         $product->update([
             'name' => $request->title,
             'quantity' => $request->details,
+            'category_id' => $request->category_id,
         ]);
 
         return;
@@ -51,6 +62,7 @@ class ProductRepository
         $validate = validator()->make($request->all(), [
             'title' => 'required|string|min:3|max:255',
             'details' => 'required|numeric',
+            'category_id' => 'required|numeric',
         ]);
 
         return $validate;
