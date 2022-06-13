@@ -19,6 +19,13 @@
             </div>
         </div>
 
+        <div class="search-bar">
+            <form action="{{ route('search') }}" method="GET">
+                <input type="text" name="search" placeholder="Search" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
         <div class="container mt-5">
             <a href="{{ route('addProduct') }}" class="btn btn-primary" type="submit">
                 Add New Product
