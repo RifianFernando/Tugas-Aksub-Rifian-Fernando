@@ -15,15 +15,29 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4 mt-5">List Product</h1>
-                <p class="lead">Welcome to your Product List manager!</p>
+                <p class="lead">Welcome to your Product List manager!
+                </p>
             </div>
         </div>
 
-        <div class="search-bar">
-            <form action="{{ route('search') }}" method="GET">
+        <div class="search-bar" style="margin-bottom: 20px;">
+            <form action="{{ route('searchProduct') }}" method="GET" class="form-inline d-flex justify-content-center">
                 <input type="text" name="search" placeholder="Search" />
                 <button type="submit">Search</button>
             </form>
+        </div>
+
+        <div class="mt-2 d-flex justify-content-center">
+            <p class="m-1">Filter Search</p>
+            <select name="category" onchange="window.location.href=this.value;">
+                <option value="{{ route('getSpesificCategories', ['all']) }}" @if(!empty($categoryValue)) @if($categoryValue == 'all') selected @endif @endif>All</option>
+
+                @forelse ($categories as $category)
+                    <option value="{{ route('getSpesificCategories', [$category->id]) }}"@if(!empty($categoryValue)) @if($categoryValue == $category->id) selected @endif @endif>{{ $category->name }}</option>
+                @empty
+                    <option value="">No Category</option>
+                @endforelse
+            </select>
         </div>
 
         <div class="container mt-5">
@@ -70,7 +84,7 @@
                 </div>
                 @empty
                 <div class="alert alert-info">
-                    No products yet.
+                    No products found.
                 </div>
                 @endforelse
             </div>
@@ -81,5 +95,6 @@
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"
         ></script>
+        <script src="{{ asset('js/index.js') }}"></script>
     </body>
 </html>

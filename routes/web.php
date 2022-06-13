@@ -28,4 +28,6 @@ Route::prefix('product')->group(function () {
     Route::get('/{id}/edit', [ProductController::class, 'editProduct'])->name('editProduct');
     Route::post('/{id}/update', [ProductController::class, 'updateProduct'])->name('updateProduct');
     Route::delete('/{id}/delete', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+    Route::get('/search', [ProductController::class, 'searchProduct'])->name('searchProduct');
+    Route::get('/{id}/category', [ProductController::class, 'getSpesificCategories'])->name('getSpesificCategories');
 });

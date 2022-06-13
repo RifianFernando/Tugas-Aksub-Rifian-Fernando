@@ -67,4 +67,16 @@ class ProductRepository
 
         return $validate;
     }
+
+    public function search($request){
+        $search = Products::where('name', 'like', '%'.$request->search.'%')->get();
+
+        return $search;
+    }
+
+    public function getSpesificCategories($categoryValue){
+        $getSpesificCategories = Products::where('category_id', $categoryValue)->get();
+
+        return $getSpesificCategories;
+    }
 }

@@ -33,9 +33,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->productRepository->getAll();
-        //dd($products[0]->category);
+        $categories = $this->productRepository->getAllCategories();
 
-        return view('index', compact('products'));
+        return view('index', compact('products', 'categories'));
     }
 
     public function addProduct()
@@ -85,5 +85,21 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect(route('index'));
+    }
+
+    public function searchProduct(Request $request){
+        $products = $this->productRepository->search($request);
+        $categories = $this->productRepository->getAllCategories();
+
+        return view('index', compact('products', 'categories'));
+    }
+
+    public function getSpesificCategories($categoryValue){
+        if($categoryValue == 'all')$products = $this->productRepository->getAll();
+        else $products = $this->productRepository->getSpesificCategories($categoryValue);
+
+        $categories = $this->productRepository->getAllCategories();
+
+        return view('index', compact('products', 'categories'))->with('categoryValue', $categoryValue);
     }
 }
